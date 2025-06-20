@@ -47,7 +47,7 @@ public class TaskController {
             long start = System.currentTimeMillis();
             String firstKey = null;
 
-            while (System.currentTimeMillis() - start < 5000) { // wait max 5s
+            while (System.currentTimeMillis() - start < 5000) {
                 records = consumer.poll(Duration.ofMillis(500));
                 for (ConsumerRecord<String, String> record : records) {
                     firstKey = record.key();
@@ -69,7 +69,6 @@ public class TaskController {
                         .body("No value found in Redis for key: " + firstKey);
             }
 
-            // Удаляем каждый второй символ
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < redisValue.length(); i += 2) {
                 sb.append(redisValue.charAt(i));
